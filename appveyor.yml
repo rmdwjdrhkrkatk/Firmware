@@ -20,6 +20,11 @@ platform:
 init:
 - ver
 
+matrix:
+  - PX4_CONFIG: px4_sitl_test
+  - PX4_CONFIG: px4_fmu-v4_default
+  - PX4_CONFIG: tests
+
 install:
 # if the toolchain wasn't restored from build cache download and install it
 - ps: >-
@@ -39,13 +44,10 @@ build_script:
 # safe the repopath for switching to it in cygwin bash
 - for /f %%i in ('cygpath -u %%CD%%') do set repopath=%%i
 # fetch all submodules in parallel
-- call bash --login -c "cd $repopath && git submodule -q update --init --recursive --jobs=10"
+#- call bash --login -c "cd $repopath && git submodule -q update --init --recursive --jobs=10"
 # make SITL
-- call bash --login -c "cd $repopath && make px4_sitl_test"
-# make pixracer to check NuttX build
-- call bash --login -c "cd $repopath && make px4_fmu-v4_default"
-# run tests
-- call bash --login -c "cd $repopath && make tests"
+#- call bash --login -c "cd $repopath && make px4_sitl_test"
+- call bash --login -c "cd $repopath && echo $PX4_CONFIG"
 
 # Note: using bash --login is important
 # because otherwise certain things (like python; import numpy) do not work
