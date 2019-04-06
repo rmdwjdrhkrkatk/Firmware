@@ -20,10 +20,11 @@ platform:
 init:
 - ver
 
-matrix:
-  - PX4_CONFIG: px4_sitl_test
-  - PX4_CONFIG: px4_fmu-v4_default
-  - PX4_CONFIG: tests
+environment:
+  matrix:
+    - PX4_CONFIG: px4_sitl_test
+    - PX4_CONFIG: px4_fmu-v4_default
+    - PX4_CONFIG: tests
 
 install:
 # if the toolchain wasn't restored from build cache download and install it
